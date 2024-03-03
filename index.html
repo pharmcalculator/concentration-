@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Concentration Conversion Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .calculator {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            margin-top: 0;
+        }
+        .input-label {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .input-field {
+            font-size: 18px;
+            padding: 8px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        .calculate-button {
+            font-size: 18px;
+            font-weight: bold;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .calculate-button:hover {
+            background-color: #0056b3;
+        }
+        .result-box {
+            background-color: lightblue;
+            padding: 20px;
+            font-size: 24px;
+            border-radius: 5px;
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .result-label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .result-value {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>Concentration Conversion Calculator</h1>
+        <form id="conversion-form">
+            <label for="concentration" class="input-label">Concentration:</label>
+            <input type="text" id="concentration" class="input-field" required><br>
+            
+            <label for="conversion-type" class="input-label">Conversion Type:</label>
+            <select id="conversion-type" class="input-field">
+                <option value="percentage">Percentage (%) to mg/mL</option>
+                <option value="mg_per_ml">mg/mL to Percentage (%)</option>
+                <option value="mg_per_ml_to_meq_ml">mg/mL to mEq/mL</option>
+            </select><br>
+            
+            <button type="button" class="calculate-button" onclick="calculate()">Calculate</button>
+        </form>
+        <div id="result-container" class="result-box"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            var concentrationInput = parseFloat(document.getElementById('concentration').value);
+            var conversionType = document.getElementById('conversion-type').value;
+            var result;
+
+            switch (conversionType) {
+                case 'percentage':
+                    result = (concentrationInput * 10).toFixed(2);
+                    break;
+                case 'mg_per_ml':
+                    result = (concentrationInput / 10).toFixed(2);
+                    break;
+                case 'mg_per_ml_to_meq_ml':
+                    result = (concentrationInput / 1000).toFixed(2);
+                    break;
+                default:
+                    result = "Invalid conversion type";
+            }
+
+            var resultContainer = document.getElementById('result-container');
+            resultContainer.innerHTML = `
+                <div class="result-box">
+                    <span class="result-label">Result:</span>
+                    <span class="result-value">${result}</span>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
